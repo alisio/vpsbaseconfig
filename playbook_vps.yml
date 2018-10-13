@@ -2,22 +2,27 @@
 - name: Initial CentOS 7 docker server config 
   hosts: all
   tasks:
-    - name: 
+    - name: Install Docker repo
       yum_repository:
         name: docker-ce-stable
         description: Docker CE Stable - $basearch
         baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
         gpgcheck: yes
         gpgkey: https://download.docker.com/linux/centos/gpg
-    
+    - name: Install puppet repo
+      yum:
+        name: https://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+        state: present            
     - name: Install base packages
       yum: pkg={{item}} state=installed
       with_items:
+        - ansible
         - device-mapper-persistent-data
         - docker-ce
         - epel-release
         - git
         - lvm2
+        - puppet
         - vim
         - yum-utils
     - name: Start docker-ce service
