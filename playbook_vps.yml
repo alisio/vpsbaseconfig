@@ -22,6 +22,7 @@
         - epel-release
         - git
         - lvm2
+        - mlocate
         - puppet
         - vim
         - yum-utils
