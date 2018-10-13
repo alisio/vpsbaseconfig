@@ -17,8 +17,10 @@
       yum: pkg={{item}} state=installed
       with_items:
         - ansible
+        - bash-completion
         - device-mapper-persistent-data
         - docker-ce
+        - docker-compose
         - epel-release
         - git
         - lvm2
