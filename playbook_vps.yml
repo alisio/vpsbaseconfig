@@ -1,0 +1,27 @@
+---
+- name: Initial CentOS 7 docker server config 
+  hosts: all
+  tasks:
+    - name: 
+      yum_repository:
+        name: docker-ce-stable
+        description: Docker CE Stable - $basearch
+        baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+        gpgcheck: yes
+        gpgkey: https://download.docker.com/linux/centos/gpg
+    
+    - name: Install base packages
+      yum: pkg={{item}} state=installed
+      with_items:
+        - device-mapper-persistent-data
+        - docker-ce
+        - epel-release
+        - git
+        - lvm2
+        - vim
+        - yum-utils
+    - name: Start docker-ce service
+      service:
+        name: docker
+        enabled: yes
+        state: started
